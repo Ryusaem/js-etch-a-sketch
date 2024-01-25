@@ -16,6 +16,7 @@ const btnColor = document.querySelector(".btn-color");
 const btnRainbow = document.querySelector(".btn-rainbow");
 const sizeValue = document.getElementById("sizeValue");
 const sizeSlider = document.getElementById("sizeSlider");
+const colorPicker = document.getElementById("colorPicker");
 
 // FUNCTIONS
 function setColorMode() {
@@ -30,14 +31,20 @@ function setRainbowMode() {
   currentMode = "rainbow";
 }
 
+function getRandomColor() {
+  return Math.floor(Math.random() * 256);
+}
+
 function applyColorOrErase(e) {
   if (currentMode === "color") {
     e.target.style.backgroundColor = DEFAULT_COLOR;
   } else if (currentMode === "erase") {
     e.target.style.backgroundColor = "white";
   } else if (currentMode === "rainbow") {
-    // e.target.style.backgroundColor = getRandomColor();
-    e.target.style.backgroundColor = "blue";
+    const randomR = getRandomColor();
+    const randomG = getRandomColor();
+    const randomB = getRandomColor();
+    e.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`;
   }
 }
 
