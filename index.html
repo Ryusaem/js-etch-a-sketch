@@ -6,21 +6,35 @@
     <title>Etch a Sketch</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js" defer></script>
+    
 </head>
 <body>
-    <header>
-        <h1>Etch a Sketch</h1>
+    <header class="header">
+        <h1 class="title">Etch a Sketch</h1>
     </header>
 
-    <div class="body">
+    <main class="main">
 
-        <div class="grid-container">
-            <!-- <div class="grid-item"></div>
-            <div class="grid-item"></div> -->
+        <div class="sidebar"></div>
 
-        </div>
+        <div class="grid-container"></div>
 
-    </div>
-    
+    </main>
+
+    <footer class="footer">
+        <p>
+            Copyright ©
+            <script>
+                document.write(new Date().getFullYear())
+            </script>
+            Ryusaem
+        </p>
+
+        <a href="https://github.com/Ryusaem" target="_blank">
+            <i class="fab fa-github"></i>
+        </a>
+    </footer>
+
+        
 </body>
 </html>
