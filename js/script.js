@@ -7,20 +7,37 @@ let currentSize = DEFAULT_SIZE;
 let isDrawing = false;
 let currentMode = "color"; // Can be 'color' or 'erase'
 
-// Selector
+// SELECTORS
 const gridContainer = document.querySelector(".grid-container");
 const sideBar = document.querySelector(".sidebar");
 const btnEraser = document.querySelector(".btn-eraser");
 const btnClear = document.querySelector(".btn-clear");
 const btnColor = document.querySelector(".btn-color");
+const btnRainbow = document.querySelector(".btn-rainbow");
 const sizeValue = document.getElementById("sizeValue");
 const sizeSlider = document.getElementById("sizeSlider");
+
+// FUNCTIONS
+function setColorMode() {
+  currentMode = "color";
+}
+
+function setEraseMode() {
+  currentMode = "erase";
+}
+
+function setRainbowMode() {
+  currentMode = "rainbow";
+}
 
 function applyColorOrErase(e) {
   if (currentMode === "color") {
     e.target.style.backgroundColor = DEFAULT_COLOR;
   } else if (currentMode === "erase") {
     e.target.style.backgroundColor = "white";
+  } else if (currentMode === "rainbow") {
+    // e.target.style.backgroundColor = getRandomColor();
+    e.target.style.backgroundColor = "blue";
   }
 }
 
@@ -29,16 +46,10 @@ function setModeAndColorGrid(mode) {
     setEraseMode();
   } else if (mode === "color") {
     setColorMode();
+  } else if (mode === "rainbow") {
+    setRainbowMode();
   }
   colorGrid();
-}
-
-function setColorMode() {
-  currentMode = "color";
-}
-
-function setEraseMode() {
-  currentMode = "erase";
 }
 
 function colorGrid() {
@@ -107,6 +118,11 @@ btnEraser.addEventListener("click", () => {
 // Color button
 btnColor.addEventListener("click", () => {
   setModeAndColorGrid("color");
+});
+
+// Rainbow button
+btnRainbow.addEventListener("click", () => {
+  setModeAndColorGrid("rainbow");
 });
 
 // Updating the slider value + reload grid
