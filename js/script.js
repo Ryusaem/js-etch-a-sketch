@@ -61,6 +61,7 @@ function setModeAndColorGrid(mode) {
 }
 
 function colorGrid() {
+  // Mouse events
   gridContainer.addEventListener("mousedown", (e) => {
     isDrawing = true;
     applyColorOrErase(e);
@@ -77,6 +78,28 @@ function colorGrid() {
   });
 
   document.addEventListener("mouseup", () => {
+    isDrawing = false;
+  });
+
+  // Touch events
+  gridContainer.addEventListener("touchstart", (e) => {
+    isDrawing = true;
+    applyColorOrErase(e.touches[0]); // Use the first touch point
+    e.preventDefault(); // Prevents default touch behaviors like scrolling
+  });
+
+  gridContainer.addEventListener("touchmove", (e) => {
+    if (isDrawing) {
+      applyColorOrErase(e.touches[0]); // Use the first touch point
+      e.preventDefault(); // Prevents default touch behaviors like scrolling
+    }
+  });
+
+  gridContainer.addEventListener("touchend", () => {
+    isDrawing = false;
+  });
+
+  document.addEventListener("touchend", () => {
     isDrawing = false;
   });
 }
