@@ -141,6 +141,7 @@ btnRainbow.addEventListener("click", () => {
 });
 
 // Updating the slider value + reload grid
+sizeSlider.addEventListener("mousemove", (e) => updateGridSize(e.target.value));
 sizeSlider.addEventListener("change", (e) => updateGridSize(e.target.value));
 
 // --------------------- //
