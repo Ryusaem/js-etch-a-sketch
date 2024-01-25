@@ -1,7 +1,7 @@
 const gridContainer = document.querySelector(".grid-container");
 const sideBar = document.querySelector(".sidebar");
-let x = 16;
-let y = 16;
+let x = 32;
+let y = 32;
 
 // Button to sideBar
 const btnClear = document.createElement("button");
@@ -10,19 +10,16 @@ btnClear.classList.add("btn-clear");
 sideBar.appendChild(btnClear);
 
 function createGrid(x, y) {
-  gridContainer.style.setProperty("--grid-rows", x);
-  gridContainer.style.setProperty("--grid-cols", y);
+  gridContainer.innerHTML = "";
+
+  gridContainer.style.setProperty("--items-per-row", x);
   for (let i = 0; i < x * y; i++) {
-    let cell = document.createElement("div");
-    gridContainer.appendChild(cell).className = "grid-item";
+    const gridItem = document.createElement("div");
+    gridContainer.appendChild(gridItem).className = "grid-item";
   }
 }
 
 function clearGrid() {
-  // const gridItems = document.querySelectorAll(".grid-item");
-  // gridItems.forEach((item) => {
-  //   item.remove();
-  // });
   gridContainer.innerHTML = "";
 }
 

@@ -54,14 +54,17 @@ body {
 
 .grid-container {
     display: flex;
-    border: 2px solid black;
-    width: 30rem;
     flex-wrap: wrap;
+    border: 2px solid red;
+    width: 500px;
+    height: 500px;
 }
 
 .grid-item {
     border: 1px solid black;
-    width: 1.87rem;
+    flex-grow: 1;
+    flex-basis: calc(100% / var(--items-per-row));
+    /* width: 1.87rem; */
 }
 
 /* --- MEDIA QUERIES --- */
