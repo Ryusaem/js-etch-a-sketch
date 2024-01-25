@@ -1,13 +1,54 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    height: 72px;
+    padding: 0 16px;
+    font-size: 32px;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+}
+
+.sidebar {
+    flex-shrink: 0;
+    padding: 16px;
+    width: 20%;
+    border: 2px solid red;
+}
+
 .grid-container {
     display: flex;
     border: 2px solid black;
-    height: 30rem;
     width: 30rem;
     flex-wrap: wrap;
 }
 
 .grid-item {
     border: 1px solid black;
-    height: 1.87rem;
     width: 1.87rem;
 }
