@@ -1,6 +1,13 @@
 const gridContainer = document.querySelector(".grid-container");
+const sideBar = document.querySelector(".sidebar");
 let x = 16;
 let y = 16;
+
+// Button to sideBar
+const btnClear = document.createElement("button");
+btnClear.textContent = "Clear";
+btnClear.classList.add("btn-clear");
+sideBar.appendChild(btnClear);
 
 function createGrid(x, y) {
   gridContainer.style.setProperty("--grid-rows", x);
@@ -12,10 +19,17 @@ function createGrid(x, y) {
 }
 
 function clearGrid() {
-  const gridItems = document.querySelectorAll(".grid-item");
-  gridItems.forEach((item) => {
-    item.remove();
-  });
+  // const gridItems = document.querySelectorAll(".grid-item");
+  // gridItems.forEach((item) => {
+  //   item.remove();
+  // });
+  gridContainer.innerHTML = "";
+}
+
+function reloadGrid() {
+  clearGrid();
+  createGrid(x, y);
+  colorGrid();
 }
 
 function colorGrid(e) {
@@ -40,6 +54,9 @@ function colorGrid(e) {
     isDrawing = false;
   });
 }
+
+// Clear grid
+btnClear.addEventListener("click", reloadGrid);
 
 createGrid(x, y);
 colorGrid();
