@@ -1,25 +1,31 @@
+const DEFAULT_SIZE = 16;
+const DEFAULT_COLOR = "black";
+
+let currentSize = DEFAULT_SIZE;
+
 const gridContainer = document.querySelector(".grid-container");
 const sideBar = document.querySelector(".sidebar");
 
 const btnClear = document.querySelector(".btn-clear");
+
 const sizeValue = document.getElementById("sizeValue");
 const sizeSlider = document.getElementById("sizeSlider");
 
-let x = 16;
-let y = 16;
-
-function createGrid(x, y) {
-  gridContainer.innerHTML = "";
-
-  gridContainer.style.setProperty("--items-per-row", x);
-  for (let i = 0; i < x * y; i++) {
-    const gridItem = document.createElement("div");
-    gridContainer.appendChild(gridItem).className = "grid-item";
-  }
+function setCurrentSize(newSize) {
+  currentSize = newSize;
 }
 
 function updateSizeValue(value) {
+  setCurrentSize(parseInt(value));
   sizeValue.innerHTML = `${value} x ${value}`;
+}
+
+function createGrid(currentSize) {
+  gridContainer.style.setProperty("--items-per-row", currentSize);
+  for (let i = 0; i < currentSize * currentSize; i++) {
+    const gridItem = document.createElement("div");
+    gridContainer.appendChild(gridItem).className = "grid-item";
+  }
 }
 
 function clearGrid() {
@@ -28,7 +34,7 @@ function clearGrid() {
 
 function reloadGrid() {
   clearGrid();
-  createGrid(x, y);
+  createGrid(currentSize);
   colorGrid();
 }
 
@@ -37,12 +43,12 @@ function colorGrid(e) {
 
   gridContainer.addEventListener("mousedown", (e) => {
     isDrawing = true;
-    e.target.style.backgroundColor = "black";
+    e.target.style.backgroundColor = DEFAULT_COLOR;
   });
 
   gridContainer.addEventListener("mouseover", (e) => {
     if (isDrawing) {
-      e.target.style.backgroundColor = "black";
+      e.target.style.backgroundColor = DEFAULT_COLOR;
     }
   });
 
@@ -63,7 +69,11 @@ sizeSlider.addEventListener("mousemove", (e) =>
   updateSizeValue(e.target.value)
 );
 
+sizeSlider.addEventListener("change", (e) => {
+  updateSizeValue(e.target.value);
+  reloadGrid();
+});
+
 // sizeSlider.onchange = (e) => changeSize(e.target.value);
 
-createGrid(x, y);
-colorGrid();
+reloadGrid();
