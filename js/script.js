@@ -1,13 +1,14 @@
+// CONST VARIABLES
 const DEFAULT_SIZE = 16;
 const DEFAULT_COLOR = "black";
 
+// VARIABLES
 let currentSize = DEFAULT_SIZE;
 
+// Selector
 const gridContainer = document.querySelector(".grid-container");
 const sideBar = document.querySelector(".sidebar");
-
 const btnClear = document.querySelector(".btn-clear");
-
 const sizeValue = document.getElementById("sizeValue");
 const sizeSlider = document.getElementById("sizeSlider");
 
@@ -15,13 +16,13 @@ function setCurrentSize(newSize) {
   currentSize = newSize;
 }
 
-function updateSizeValue(value) {
-  setCurrentSize(parseInt(value));
+function displayNewSize(value) {
   sizeValue.innerHTML = `${value} x ${value}`;
 }
 
 function createGrid(currentSize) {
-  gridContainer.style.setProperty("--items-per-row", currentSize);
+  gridContainer.style.setProperty("--items-per-row", currentSize); // Set CSS variable for it to be dynamic with JS
+
   for (let i = 0; i < currentSize * currentSize; i++) {
     const gridItem = document.createElement("div");
     gridContainer.appendChild(gridItem).className = "grid-item";
@@ -30,12 +31,6 @@ function createGrid(currentSize) {
 
 function clearGrid() {
   gridContainer.innerHTML = "";
-}
-
-function reloadGrid() {
-  clearGrid();
-  createGrid(currentSize);
-  colorGrid();
 }
 
 function colorGrid(e) {
@@ -61,19 +56,25 @@ function colorGrid(e) {
   });
 }
 
-// Clear grid
+function reloadGrid() {
+  clearGrid();
+  createGrid(currentSize);
+  colorGrid();
+}
+
+// update current size + display it + reload grid
+function updateGridSize(value) {
+  setCurrentSize(value);
+  displayNewSize(value);
+  reloadGrid();
+}
+
+// Clear grid button
 btnClear.addEventListener("click", reloadGrid);
 
-// Updating the slider value
-sizeSlider.addEventListener("mousemove", (e) =>
-  updateSizeValue(e.target.value)
-);
+// Updating the slider value + reload grid
+sizeSlider.addEventListener("change", (e) => updateGridSize(e.target.value));
 
-sizeSlider.addEventListener("change", (e) => {
-  updateSizeValue(e.target.value);
-  reloadGrid();
-});
-
-// sizeSlider.onchange = (e) => changeSize(e.target.value);
-
+// --------------------- //
+// Initial grid
 reloadGrid();
