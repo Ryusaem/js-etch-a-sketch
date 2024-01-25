@@ -64,7 +64,6 @@ body {
     border: 1px solid black;
     flex-grow: 1;
     flex-basis: calc(100% / var(--items-per-row));
-    /* width: 1.87rem; */
 }
 
 /* --- MEDIA QUERIES --- */

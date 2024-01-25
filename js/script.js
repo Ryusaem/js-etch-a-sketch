@@ -1,13 +1,12 @@
 const gridContainer = document.querySelector(".grid-container");
 const sideBar = document.querySelector(".sidebar");
-let x = 32;
-let y = 32;
 
-// Button to sideBar
-const btnClear = document.createElement("button");
-btnClear.textContent = "Clear";
-btnClear.classList.add("btn-clear");
-sideBar.appendChild(btnClear);
+const btnClear = document.querySelector(".btn-clear");
+const sizeValue = document.getElementById("sizeValue");
+const sizeSlider = document.getElementById("sizeSlider");
+
+let x = 16;
+let y = 16;
 
 function createGrid(x, y) {
   gridContainer.innerHTML = "";
@@ -17,6 +16,10 @@ function createGrid(x, y) {
     const gridItem = document.createElement("div");
     gridContainer.appendChild(gridItem).className = "grid-item";
   }
+}
+
+function updateSizeValue(value) {
+  sizeValue.innerHTML = `${value} x ${value}`;
 }
 
 function clearGrid() {
@@ -54,6 +57,13 @@ function colorGrid(e) {
 
 // Clear grid
 btnClear.addEventListener("click", reloadGrid);
+
+// Updating the slider value
+sizeSlider.addEventListener("mousemove", (e) =>
+  updateSizeValue(e.target.value)
+);
+
+// sizeSlider.onchange = (e) => changeSize(e.target.value);
 
 createGrid(x, y);
 colorGrid();
