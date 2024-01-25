@@ -4,6 +4,7 @@ const DEFAULT_COLOR = "black";
 
 // VARIABLES
 let currentSize = DEFAULT_SIZE;
+let currentColor = DEFAULT_COLOR;
 let isDrawing = false;
 let currentMode = "color"; // Can be 'color' or 'erase'
 
@@ -37,7 +38,7 @@ function getRandomColor() {
 
 function applyColorOrErase(e) {
   if (currentMode === "color") {
-    e.target.style.backgroundColor = DEFAULT_COLOR;
+    e.target.style.backgroundColor = currentColor;
   } else if (currentMode === "erase") {
     e.target.style.backgroundColor = "white";
   } else if (currentMode === "rainbow") {
@@ -113,6 +114,13 @@ function updateGridSize(value) {
   displayNewSize(value);
   reloadGrid();
 }
+
+// EVENT LISTENERS
+
+// Color picker
+colorPicker.addEventListener("change", (e) => {
+  currentColor = e.target.value;
+});
 
 // Clear grid button
 btnClear.addEventListener("click", reloadGrid);
