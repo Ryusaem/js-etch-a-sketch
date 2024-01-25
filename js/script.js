@@ -4,13 +4,63 @@ const DEFAULT_COLOR = "black";
 
 // VARIABLES
 let currentSize = DEFAULT_SIZE;
+let isDrawing = false;
+let currentMode = "color"; // Can be 'color' or 'erase'
 
 // Selector
 const gridContainer = document.querySelector(".grid-container");
 const sideBar = document.querySelector(".sidebar");
+const btnEraser = document.querySelector(".btn-eraser");
 const btnClear = document.querySelector(".btn-clear");
+const btnColor = document.querySelector(".btn-color");
 const sizeValue = document.getElementById("sizeValue");
 const sizeSlider = document.getElementById("sizeSlider");
+
+function applyColorOrErase(e) {
+  if (currentMode === "color") {
+    e.target.style.backgroundColor = DEFAULT_COLOR;
+  } else if (currentMode === "erase") {
+    e.target.style.backgroundColor = "white";
+  }
+}
+
+function setModeAndColorGrid(mode) {
+  if (mode === "erase") {
+    setEraseMode();
+  } else if (mode === "color") {
+    setColorMode();
+  }
+  colorGrid();
+}
+
+function setColorMode() {
+  currentMode = "color";
+}
+
+function setEraseMode() {
+  currentMode = "erase";
+}
+
+function colorGrid() {
+  gridContainer.addEventListener("mousedown", (e) => {
+    isDrawing = true;
+    applyColorOrErase(e);
+  });
+
+  gridContainer.addEventListener("mouseover", (e) => {
+    if (isDrawing) {
+      applyColorOrErase(e);
+    }
+  });
+
+  gridContainer.addEventListener("mouseup", () => {
+    isDrawing = false;
+  });
+
+  document.addEventListener("mouseup", () => {
+    isDrawing = false;
+  });
+}
 
 function setCurrentSize(newSize) {
   currentSize = newSize;
@@ -33,29 +83,6 @@ function clearGrid() {
   gridContainer.innerHTML = "";
 }
 
-function colorGrid(e) {
-  let isDrawing = false;
-
-  gridContainer.addEventListener("mousedown", (e) => {
-    isDrawing = true;
-    e.target.style.backgroundColor = DEFAULT_COLOR;
-  });
-
-  gridContainer.addEventListener("mouseover", (e) => {
-    if (isDrawing) {
-      e.target.style.backgroundColor = DEFAULT_COLOR;
-    }
-  });
-
-  gridContainer.addEventListener("mouseup", () => {
-    isDrawing = false;
-  });
-
-  document.addEventListener("mouseup", () => {
-    isDrawing = false;
-  });
-}
-
 function reloadGrid() {
   clearGrid();
   createGrid(currentSize);
@@ -71,6 +98,16 @@ function updateGridSize(value) {
 
 // Clear grid button
 btnClear.addEventListener("click", reloadGrid);
+
+// Eraser button
+btnEraser.addEventListener("click", () => {
+  setModeAndColorGrid("erase");
+});
+
+// Color button
+btnColor.addEventListener("click", () => {
+  setModeAndColorGrid("color");
+});
 
 // Updating the slider value + reload grid
 sizeSlider.addEventListener("change", (e) => updateGridSize(e.target.value));
