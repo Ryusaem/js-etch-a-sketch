@@ -11,4 +11,35 @@ function createGrid(x, y) {
   }
 }
 
+function clearGrid() {
+  const gridItems = document.querySelectorAll(".grid-item");
+  gridItems.forEach((item) => {
+    item.remove();
+  });
+}
+
+function colorGrid(e) {
+  let isDrawing = false;
+
+  gridContainer.addEventListener("mousedown", (e) => {
+    isDrawing = true;
+    e.target.style.backgroundColor = "black";
+  });
+
+  gridContainer.addEventListener("mouseover", (e) => {
+    if (isDrawing) {
+      e.target.style.backgroundColor = "black";
+    }
+  });
+
+  gridContainer.addEventListener("mouseup", () => {
+    isDrawing = false;
+  });
+
+  document.addEventListener("mouseup", () => {
+    isDrawing = false;
+  });
+}
+
 createGrid(x, y);
+colorGrid();
